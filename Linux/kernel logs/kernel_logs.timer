@@ -1,0 +1,12 @@
+# kernel logs timer file : 
+
+[Unit]
+Description=Run kernel-logs file every hour to save the kernel_logs to dropbox
+
+[Timer]
+OnCalendar=hourly   # Run every hour
+Persistent=true    # Keep missed runs
+
+[Install]
+WantedBy=timers.target
+
