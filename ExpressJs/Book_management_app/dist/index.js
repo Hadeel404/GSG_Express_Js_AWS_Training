@@ -6,10 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const book_routes_1 = __importDefault(require("./routes/book_routes"));
 const app = (0, express_1.default)();
-const PORT = 8000;
+//const PORT = 8000;
+const PORT = 80;
 app.use(express_1.default.json());
 app.get('/', (req, res) => {
     res.send('Server UP!');
+});
+app.get("/health", function (req, res) {
+    res.sendStatus(200).send(" healthyyy");
 });
 app.use('/api/book', book_routes_1.default);
 app.use((req, res) => {
