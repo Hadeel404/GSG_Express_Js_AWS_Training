@@ -7,7 +7,7 @@ import cors from 'cors';
 import dataSource from './db/dataSource.js';
 import usersRouter from './routes/user.routes.js';
 import postRouter from './routes/post.routes.js'
-//import { authenticate } from './middlewares/auth/authenticate.js';
+import { authenticate } from './middlewares/auth/authenticate.js';
 
 var app = express();
 const PORT = 5000;
@@ -19,10 +19,9 @@ app.use(cors({
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/users', usersRouter);
-//app.use('/posts', authenticate, postRouter);
+app.use('/posts', authenticate, postRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

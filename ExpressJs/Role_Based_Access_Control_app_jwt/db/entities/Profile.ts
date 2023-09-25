@@ -12,7 +12,7 @@ export class Profile extends BaseEntity {
   @Column({ nullable: false, length:45 })
   lastName: string;
 
-  @Column({ nullable: true, type: 'timestamp' })
+  @Column({ nullable: false, type: 'timestamp' })
   dateOfBirth: Date;
 
   // @OneToOne(() => User)

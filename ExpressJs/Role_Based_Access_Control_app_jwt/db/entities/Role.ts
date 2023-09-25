@@ -24,7 +24,7 @@ export class Role extends BaseEntity {
   @JoinTable()
   permissions: Permission[];
 
-  @ManyToMany(() => User, { })
+  @ManyToMany(() => User, { cascade: true, eager: true })
   @JoinTable()
   users: User[];
 

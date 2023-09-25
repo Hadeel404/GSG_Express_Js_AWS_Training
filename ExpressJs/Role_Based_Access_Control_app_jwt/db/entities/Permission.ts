@@ -5,6 +5,6 @@ export class Permission extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column({ unique: true, nullable: false })
+  @Column({ unique: true })
   name: string;
 }

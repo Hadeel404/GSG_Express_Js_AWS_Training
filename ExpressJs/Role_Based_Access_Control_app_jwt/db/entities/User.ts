@@ -1,4 +1,4 @@
-import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, ManyToOne, JoinColumn, PrimaryGeneratedColumn, OneToOne, ManyToMany, JoinTable } from "typeorm";
+import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, ManyToOne, JoinColumn, PrimaryGeneratedColumn, OneToOne } from "typeorm";
 import bcrypt from 'bcrypt';
 import { Role } from "./Role.js";
 import { Profile } from "./Profile.js";
@@ -11,7 +11,7 @@ export class User extends BaseEntity {
   @Column({ length: 255, nullable: false })
   userName: string;
 
-  @Column({ nullable: false, unique:true })
+  @Column({ nullable: false })
   email: string;
 
   @BeforeInsert()
@@ -30,9 +30,9 @@ export class User extends BaseEntity {
   })
   type: 'user' | 'admin'| 'editor';
 
-  @ManyToMany(() => Role, role => role.users, { eager: true, cascade: true })
-  @JoinTable()
-  roles: Role[];
+  // @ManyToOne(() => Role, role => role.users, { cascade: true, eager: true, nullable: true })
+  // @JoinColumn()
+  // role: Role;
 
   @OneToOne(() => Profile)
   @JoinColumn()
