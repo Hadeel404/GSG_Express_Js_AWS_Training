@@ -1,0 +1,40 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-alpine
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set image version (tag)
+      id: image_version
+      run: echo "gitsha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT 
+
+    - name: Login to Repository
+      uses: docker/login-action@v3
+      with:
+          # registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ghcr.io/hadeel404/GSG_Express_Js_AWS_Training/Docker/Hello_Docker:${{ steps.image_version.outputs.gitsha }}
+    
+    - name: Publish docker image
+      run: docker push ghcr.io/hadeel404/express-docker:${{ steps.image_version.outputs.gitsha }}
+
+    - name: Print logs
+      if: always()
+      run: docker compose logs
